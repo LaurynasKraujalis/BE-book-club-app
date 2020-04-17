@@ -5,13 +5,14 @@ module.exports = (sequelize, DataTypes) => {
     {
       author: DataTypes.STRING,
       title: DataTypes.STRING,
-      imageUrl: DataTypes.STRING,
+      imageUrl: DataTypes.TEXT,
     },
     {}
   );
   book.associate = function (models) {
     book.belongsTo(models.user);
     book.hasMany(models.rating);
+    book.hasMany(models.comment);
   };
   return book;
 };

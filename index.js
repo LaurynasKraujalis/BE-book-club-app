@@ -125,6 +125,10 @@ const detailsPageRouter = require("./routers/detailsRouter");
 
 app.use("/books", detailsPageRouter);
 
+const userRouter = require("./routers/userRouter");
+
+app.use("/newbook", userRouter);
+
 // POST endpoint which requires a token for testing purposes, can be removed
 app.post("/authorized_post_request", authMiddleWare, (req, res) => {
   // accessing user that was added to req by the auth middleware

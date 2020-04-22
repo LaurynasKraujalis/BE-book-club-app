@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   comment.associate = function (models) {
     comment.belongsTo(models.user);
     comment.belongsTo(models.book);
+    comment.hasMany(models.reaction);
   };
   return comment;
 };

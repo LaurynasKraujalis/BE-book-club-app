@@ -13,7 +13,6 @@ router.post("/:id", authMiddleware, async (req, res, next) => {
   const { rating, userId } = req.body;
   const bookId = req.params.id;
 
-  console.log("what am I receiving?", req.body);
   try {
     const newRating = await Rating.create({ rating, bookId, userId });
 

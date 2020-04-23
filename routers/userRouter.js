@@ -7,34 +7,35 @@ const authMiddleware = require("../auth/middleware");
 
 const router = new Router();
 
-router.post("/", async (req, res, next) => {
+router.post("/", authMiddleware, async (req, res, next) => {
   const { author, title, imageUrl, description, userId } = req.body;
 
-  // if (!author && !title && !imageUrl && !description) {
-  //   return res.status(400).send({
-  //     mesage: "Not enough information about the book to create new book",
-  //   });
-  // }
-
-  try {
-    const newBook = await Book.create({
-      author,
-      title,
-      imageUrl,
-      description,
-      userId,
+  if (!author && !title && !imageUrl && !description) {
+    return res.status(400).send({
+      mesage:
+        "Not enough information about the book to create new book, try a different one.",
     });
-
-    if (!newBook) {
-      return res.status(400).send({
-        message: "No new book added",
+  } else {
+    try {
+      const newBook = await Book.create({
+        author,
+        title,
+        imageUrl,
+        description,
+        userId,
       });
-    }
 
-    return res.status(200).send(newBook);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).send({ message: "Something went wrong, sorry" });
+      if (!newBook) {
+        return res.status(400).send({
+          message: "No new book added",
+        });
+      }
+
+      return res.status(200).send(newBook);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send({ message: "Something went wrong, sorry" });
+    }
   }
 });
 

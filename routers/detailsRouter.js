@@ -14,9 +14,21 @@ router.post("/:id", authMiddleware, async (req, res, next) => {
   const bookId = req.params.id;
 
   try {
-    const newRating = await Rating.create({ rating, bookId, userId });
+    const oldRating = await Rating.findOne({ where: { bookId, userId } });
 
-    return res.status(200).send({ rating: newRating.rating });
+    if (oldRating) {
+      console.log("There already is a vote for this user for this book");
+
+      oldRating.dataValues.rating = rating;
+
+      await oldRating.save();
+
+      return res.status(200).send({ rating: oldRating.rating });
+    } else {
+      const newRating = await Rating.create({ rating, bookId, userId });
+
+      return res.status(200).send({ rating: newRating.rating });
+    }
   } catch (error) {
     console.log(error);
     return res.status(400).send({ message: "Something went wrong, sorry" });

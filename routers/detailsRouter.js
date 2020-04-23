@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const authMiddleware = require("../auth/middleware");
 
 const Book = require("../models").book;
 const User = require("../models").user;
@@ -8,7 +9,7 @@ const Reaction = require("../models").reaction;
 
 const router = new Router();
 
-router.post("/:id", async (req, res, next) => {
+router.post("/:id", authMiddleware, async (req, res, next) => {
   const { rating, userId } = req.body;
   const bookId = req.params.id;
 

@@ -58,7 +58,7 @@ router.get("/:id", async (req, res, next) => {
         { model: User, attributes: ["id", "name"] },
         {
           model: Comment,
-          attributes: ["id", "comment", "userId"],
+          attributes: ["id", "comment", "userId", "createdAt"],
           include: {
             model: Reaction,
             attributes: ["id", "reaction", "userId"],

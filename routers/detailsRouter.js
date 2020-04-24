@@ -33,9 +33,7 @@ router.post("/:id/rating", authMiddleware, async (req, res, next) => {
     if (oldRating) {
       console.log("There already is a vote for this user for this book");
 
-      oldRating.dataValues.rating = rating;
-
-      await oldRating.save();
+      await oldRating.update({ rating });
 
       return res.status(200).send({ rating: oldRating.rating });
     } else {
@@ -54,7 +52,7 @@ router.get("/:id", async (req, res, next) => {
   try {
     const bookDetails = await Book.findByPk(bookId, {
       include: [
-        { model: Rating, attributes: ["rating"] },
+        { model: Rating, attributes: ["id", "rating"] },
         { model: User, attributes: ["id", "name"] },
         {
           model: Comment,
@@ -72,9 +70,6 @@ router.get("/:id", async (req, res, next) => {
         message: "No book found",
       });
     }
-    // const { commentUserNameId } = bookDetails.comments.id.userId;
-
-    // const commentUserName = await User.findByPk(commentUserNameId);
 
     return res.status(200).send(bookDetails);
   } catch (error) {

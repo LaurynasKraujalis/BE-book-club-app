@@ -8,7 +8,7 @@ async function auth(req, res, next) {
   if (!auth || !auth[0] === "Bearer" || !auth[1]) {
     res.status(401).send({
       message:
-        "This endpoint requires an Authorization header with a valid token"
+        "This endpoint requires an Authorization header with a valid token",
     });
   }
 
@@ -28,18 +28,20 @@ async function auth(req, res, next) {
 
     switch (error.name) {
       case "TokenExpiredError":
-        return res
-          .status(401)
-          .send({ error: error.name, message: error.message });
+        return res.status(401).send({
+          error: error.name,
+          message: "Your session expired. Please log in again.",
+        });
 
       case "JsonWebTokenError":
-        return res
-          .status(400)
-          .send({ error: error.name, message: error.message });
+        return res.status(400).send({
+          error: error.name,
+          message: "You need to be logged in to do this.",
+        });
 
       default:
         return res.status(400).send({
-          message: "Something went wrong, sorry"
+          message: "Something went wrong, sorry",
         });
     }
   }

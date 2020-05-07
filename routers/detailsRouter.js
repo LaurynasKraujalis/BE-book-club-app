@@ -10,11 +10,16 @@ const Reaction = require("../models").reaction;
 const router = new Router();
 
 router.post("/:id/comments", authMiddleware, async (req, res, next) => {
-  const { comment, userId } = req.body;
+  const { comment, userId, userName } = req.body;
   const bookId = req.params.id;
 
   try {
-    const newComment = await Comment.create({ comment, bookId, userId });
+    const newComment = await Comment.create({
+      comment,
+      userName,
+      bookId,
+      userId,
+    });
 
     return res.status(200).send(newComment);
   } catch (error) {
@@ -37,21 +42,17 @@ router.post("/:id/rating", authMiddleware, async (req, res, next) => {
 
       await oldRating.update({ rating });
 
-      return res
-        .status(200)
-        .send({
-          rating: oldRating.rating,
-          message: "Your rating for this book has been updated",
-        });
+      return res.status(200).send({
+        rating: oldRating.rating,
+        message: "Your rating for this book has been updated",
+      });
     } else {
       const newRating = await Rating.create({ rating, bookId, userId });
 
-      return res
-        .status(200)
-        .send({
-          rating: newRating.rating,
-          message: "You have now rated this book!",
-        });
+      return res.status(200).send({
+        rating: newRating.rating,
+        message: "You have now rated this book!",
+      });
     }
   } catch (error) {
     console.log(error);
@@ -68,7 +69,7 @@ router.get("/:id", async (req, res, next) => {
         { model: User, attributes: ["id", "name"] },
         {
           model: Comment,
-          attributes: ["id", "comment", "userId", "createdAt"],
+          attributes: ["id", "comment", "userName", "createdAt"],
           include: {
             model: Reaction,
             attributes: ["id", "reaction", "userId"],

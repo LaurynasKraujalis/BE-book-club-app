@@ -31,15 +31,27 @@ router.post("/:id/rating", authMiddleware, async (req, res, next) => {
     const oldRating = await Rating.findOne({ where: { bookId, userId } });
 
     if (oldRating) {
-      console.log("There already is a vote for this user for this book");
+      console.log(
+        "There already is a vote for this user for this book, rating is now changed"
+      );
 
       await oldRating.update({ rating });
 
-      return res.status(200).send({ rating: oldRating.rating });
+      return res
+        .status(200)
+        .send({
+          rating: oldRating.rating,
+          message: "Your rating for this book has been updated",
+        });
     } else {
       const newRating = await Rating.create({ rating, bookId, userId });
 
-      return res.status(200).send({ rating: newRating.rating });
+      return res
+        .status(200)
+        .send({
+          rating: newRating.rating,
+          message: "You have now rated this book!",
+        });
     }
   } catch (error) {
     console.log(error);

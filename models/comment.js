@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     "comment",
     {
       comment: DataTypes.TEXT,
+      userName: DataTypes.STRING,
     },
     {}
   );

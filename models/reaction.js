@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     "reaction",
     {
       reaction: DataTypes.STRING,
+      userName: DataTypes.STRING,
     },
     {}
   );

@@ -14,7 +14,6 @@ router.post(
   authMiddleware,
   async (req, res, next) => {
     const { reaction, commentId, userId, userName } = req.body;
-
     try {
       const newReaction = await Reaction.create({
         reaction,
@@ -94,7 +93,7 @@ router.get("/:id", async (req, res, next) => {
           attributes: ["id", "comment", "userName", "createdAt"],
           include: {
             model: Reaction,
-            attributes: ["id", "reaction", "userId"],
+            attributes: ["id", "reaction", "userId", "userName"],
           },
         },
       ],

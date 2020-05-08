@@ -9,6 +9,28 @@ const Reaction = require("../models").reaction;
 
 const router = new Router();
 
+router.post(
+  "/:id/comments/reactions",
+  authMiddleware,
+  async (req, res, next) => {
+    const { reaction, commentId, userId, userName } = req.body;
+
+    try {
+      const newReaction = await Reaction.create({
+        reaction,
+        userName,
+        userId,
+        commentId,
+      });
+
+      return res.status(200).send(newReaction);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send({ message: "Something went wrong, sorry" });
+    }
+  }
+);
+
 router.post("/:id/comments", authMiddleware, async (req, res, next) => {
   const { comment, userId, userName } = req.body;
   const bookId = req.params.id;

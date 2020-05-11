@@ -93,7 +93,7 @@ router.get("/:id", async (req, res, next) => {
           attributes: ["id", "comment", "userName", "createdAt"],
           include: {
             model: Reaction,
-            attributes: ["id", "reaction", "userId", "userName"],
+            attributes: ["id", "reaction", "userId", "commentId", "userName"],
           },
         },
       ],

@@ -39,17 +39,35 @@ router.post("/newbook", authMiddleware, async (req, res, next) => {
   }
 });
 
-router.post("/myprofile", authMiddleware, async (req, res, next) => {
-  const { userId, motto } = req.body;
+router.post("/myprofile/motto", authMiddleware, async (req, res, next) => {
+  const { id, motto } = req.body;
 
   try {
-    const userInfo = await User.findOne({ where: { userId } });
+    const userInfo = await User.findOne({ where: { id } });
 
     await userInfo.update({ motto });
 
     return res.status(200).send({
       userInfo,
-      message: "Your personal information has been updated",
+      message: "Your motto has been updated",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+router.post("/myprofile/imageurl", authMiddleware, async (req, res, next) => {
+  const { userId, imageUrl } = req.body;
+
+  try {
+    const userInfo = await User.findOne({ where: { userId } });
+
+    await userInfo.update({ imageUrl });
+
+    return res.status(200).send({
+      userInfo,
+      message: "Your profile picture has been updated",
     });
   } catch (error) {
     console.log(error);

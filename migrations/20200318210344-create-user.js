@@ -10,6 +10,7 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       email: {
@@ -22,18 +23,15 @@ module.exports = {
         allowNull: false,
       },
       image: {
-        type: DataTypes.TEXT,
-
+        type: Sequelize.TEXT,
         defaultValue: null,
       },
       motto: {
-        type: DataTypes.STRING,
-
+        type: Sequelize.STRING,
         defaultValue: null,
       },
       story: {
-        type: DataTypes.TEXT,
-
+        type: Sequelize.TEXT,
         defaultValue: null,
       },
       createdAt: {

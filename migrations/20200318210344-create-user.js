@@ -30,10 +30,6 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: null,
       },
-      story: {
-        type: Sequelize.TEXT,
-        defaultValue: null,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

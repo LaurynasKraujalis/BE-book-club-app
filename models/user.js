@@ -23,9 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       motto: {
         type: DataTypes.STRING,
       },
-      story: {
-        type: DataTypes.TEXT,
-      },
     },
     {}
   );

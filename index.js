@@ -20,7 +20,7 @@ app.use("/", homepageRouter);
 
 app.use("/books", detailsPageRouter);
 
-app.use("/newbook", userRouter);
+app.use("/", userRouter);
 
 app.use("/", authRouter);
 

@@ -7,7 +7,7 @@ const authMiddleware = require("../auth/middleware");
 
 const router = new Router();
 
-router.post("/", authMiddleware, async (req, res, next) => {
+router.post("/newbook", authMiddleware, async (req, res, next) => {
   const { author, title, imageUrl, description, userId } = req.body;
 
   if (!author && !title && !imageUrl && !description) {
@@ -36,6 +36,24 @@ router.post("/", authMiddleware, async (req, res, next) => {
       console.log(error);
       return res.status(400).send({ message: "Something went wrong, sorry" });
     }
+  }
+});
+
+router.post("/myprofile", authMiddleware, async (req, res, next) => {
+  const { userId, motto } = req.body;
+
+  try {
+    const userInfo = await User.findOne({ where: { userId } });
+
+    await userInfo.update({ motto });
+
+    return res.status(200).send({
+      userInfo,
+      message: "Your personal information has been updated",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 });
 

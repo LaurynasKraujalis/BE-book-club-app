@@ -59,7 +59,7 @@ router.post("/myprofile/motto", authMiddleware, async (req, res, next) => {
 
 router.post("/myprofile/image", authMiddleware, async (req, res, next) => {
   const { id, image } = req.body;
-  console.log(`what is in the body`, id, image);
+  // console.log(`what is in the body`, id, image);
   try {
     const userInfo = await User.findOne({ where: { id } });
 

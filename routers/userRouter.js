@@ -57,13 +57,13 @@ router.post("/myprofile/motto", authMiddleware, async (req, res, next) => {
   }
 });
 
-router.post("/myprofile/imageurl", authMiddleware, async (req, res, next) => {
-  const { userId, imageUrl } = req.body;
-
+router.post("/myprofile/image", authMiddleware, async (req, res, next) => {
+  const { id, image } = req.body;
+  console.log(`what is in the body`, id, image);
   try {
-    const userInfo = await User.findOne({ where: { userId } });
+    const userInfo = await User.findOne({ where: { id } });
 
-    await userInfo.update({ imageUrl });
+    await userInfo.update({ image });
 
     return res.status(200).send({
       userInfo,

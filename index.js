@@ -11,8 +11,8 @@ const authRouter = require("./routers/auth");
 const app = express();
 
 var bodyParser = require("body-parser");
-app.use(bodyParser.json({ limit: "5mb" }));
-app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 app.use(loggerMiddleWare("dev"));
 

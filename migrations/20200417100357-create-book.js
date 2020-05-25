@@ -20,6 +20,9 @@ module.exports = {
       description: {
         type: Sequelize.TEXT,
       },
+      userName: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

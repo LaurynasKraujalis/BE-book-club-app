@@ -8,7 +8,7 @@ const router = new Router();
 router.get("/", async (req, res, next) => {
   try {
     const allMembers = await User.findAll({
-      include: { model: Book, attributes: ["id", "title", "userName"] },
+      include: { model: Book, attributes: ["id", "title"] },
     });
 
     if (!allMembers) {
